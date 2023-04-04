@@ -16,5 +16,6 @@ BULLET_SPEED = 8
 
 # Meteor Settings
 METEOR_GFX = 'res/gfx/meteor.png'
-METEOR_SCALE = 4
+METEOR_MIN_SCALE = 1
+METEOR_MAX_SCALE = 7
 METEOR_SPEED = 3

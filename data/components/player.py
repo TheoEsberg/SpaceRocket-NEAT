@@ -13,6 +13,13 @@ class Player():
         self.y = y
         self.velocity = 0
         
+    # Update function to simplify for the main file
+    def tick(self, win):
+        self.move()
+        self.shoot()
+        self.render(win)
+        self.renderBullets(win)
+        
     # Move the player
     def move(self):
         keys = pygame.key.get_pressed()
@@ -23,6 +30,7 @@ class Player():
             if (self.x < 600 - self.GFX.get_width()):
                 self.x += MOVEMENT_SPEED
             
+    # Handle the shooting
     def shoot(self):
         keys = pygame.key.get_pressed()
         if keys[pygame.K_SPACE]:
@@ -33,14 +41,24 @@ class Player():
                 self.bullets.append(left_bullet)
                 self.bullets.append(right_bullet)
             
+    # Render the bullets shot by the player
     def renderBullets(self, win):
         for bullet in self.bullets:
             bullet.move()
             bullet.render(win)
             if bullet.y < -20:
                 self.bullets.remove(bullet)
+                
+    def get_bullets(self):
+        return self.bullets
             
+    # Render the player
     def render(self, win):
         win.blit(self.GFX, (self.x, self.y))
+    
+    # Get the player mask    
+    def get_mask(self):
+        return(pygame.mask.from_surface(self.GFX))
+        
             
             

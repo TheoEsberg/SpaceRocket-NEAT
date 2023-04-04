@@ -23,9 +23,13 @@ def main():
         
         # Pygame event handler
         for event in pygame.event.get():
+            
+            # If the event is KEYUP and the key was the SpaceBar change the player can shoot boolean to be true
             if event.type == pygame.KEYUP:
                 if event.key == pygame.K_SPACE:
                     player.canShoot = True
+
+            # This event is called each time the pygame timer of USEREVENT is ran
             if event.type == pygame.USEREVENT + 1:
                 # Create a new meteor and add it to the meteors list
                 new_meteor = Meteor.Meteor(random.randrange(0, WIN_WIDTH - 64), -100)
@@ -42,18 +46,29 @@ def main():
                 pygame.quit()
                 quit()
         
-        
-
-        
+        # Set the background of the game
         win.fill((15, 15, 15))
-        player.move()
-        player.shoot()
-        player.render(win)
-        player.renderBullets(win)
         
+        # Tick the player
+        player.tick(win)
+        
+        # Tick the meteors
         for meteor in meteors:
-            meteor.move()
-            meteor.render(win)
+            meteor.tick(win)
+            
+            for bullet in player.bullets:
+                has_collided = meteor.collision(bullet)
+                if (has_collided):
+                    player.bullets.remove(bullet)
+                    meteors.remove(meteor)
+            
+            has_collided = meteor.collision(player)
+            if (has_collided):
+                meteors.remove(meteor)
+            
+            if (meteor.y > WIN_HEIGHT):
+                meteors.remove(meteor)
+            
             
         pygame.display.update()
                 

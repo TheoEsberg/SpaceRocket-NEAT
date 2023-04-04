@@ -9,8 +9,14 @@ class Bullet():
         self.x = x
         self.y = y
         
+    # Move bullet
     def move(self):
         self.y -= BULLET_SPEED
         
+    # Render the bullet
     def render(self, win):
         win.blit(self.GFX, (self.x, self.y))
+        
+    # Get the bullet mask
+    def get_mask(self):
+        return(pygame.mask.from_surface(self.GFX))
