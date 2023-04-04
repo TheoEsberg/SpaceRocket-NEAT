@@ -14,7 +14,6 @@ class Meteor():
     def tick(self, win):
         self.move()
         self.render(win)
-        print(self.meteor_scale)
         
     # Move the meteor
     def move(self):

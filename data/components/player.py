@@ -7,6 +7,8 @@ class Player():
     GFX = pygame.transform.scale(gfx_image, (gfx_image.get_width() * PLAYER_SCALE, gfx_image.get_height() * PLAYER_SCALE))
     bullets = []
     canShoot = True
+    current_bullets = 8
+    lifes = 3
     
     def __init__(self, x, y):
         self.x = x
@@ -30,11 +32,19 @@ class Player():
             if (self.x < 600 - self.GFX.get_width()):
                 self.x += MOVEMENT_SPEED
             
+    def move_left(self):
+        if (self.x > 0):
+            self.x -= MOVEMENT_SPEED
+
+    def move_right(self):
+        if (self.x < 600 - self.GFX.get_width()):
+            self.x += MOVEMENT_SPEED
+            
     # Handle the shooting
     def shoot(self):
         keys = pygame.key.get_pressed()
         if keys[pygame.K_SPACE]:
-            if self.canShoot == True:
+            if self.canShoot == True and self.current_bullets >= 0:
                 self.canShoot = False
                 left_bullet = Bullet(self.x - 11, self.y - 10)
                 right_bullet = Bullet(self.x - 21 + self.GFX.get_width(), self.y - 10)
