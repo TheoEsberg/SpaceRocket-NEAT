@@ -26,11 +26,9 @@ class Player():
     def move(self):
         keys = pygame.key.get_pressed()
         if keys[pygame.K_LEFT] or keys[pygame.K_a]:
-            if (self.x > 0):
-                self.x -= MOVEMENT_SPEED
+            self.move_left()
         if keys[pygame.K_RIGHT] or keys[pygame.K_d]:
-            if (self.x < 600 - self.GFX.get_width()):
-                self.x += MOVEMENT_SPEED
+            self.move_right()
             
     def move_left(self):
         if (self.x > 0):
